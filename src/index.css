@@ -27,22 +27,23 @@ body {
 
 h1, h2, h3 { font-family: 'Fraunces', serif; letter-spacing: -0.02em; }
 
-/* Premium shimmer button */
+/* Premium shimmer button — dourado presente */
 .shimmer-btn {
   position: relative;
   overflow: hidden;
   isolation: isolate;
   background:
-    linear-gradient(180deg, rgba(201,168,106,0.18) 0%, rgba(201,168,106,0.08) 100%),
-    radial-gradient(120% 160% at 50% 0%, rgba(228,197,144,0.22) 0%, rgba(228,197,144,0) 60%),
-    #13171E;
-  border: 1px solid rgba(201,168,106,0.45);
-  color: var(--bone);
+    linear-gradient(180deg, #E4C590 0%, #C9A86A 55%, #A98A4D 100%);
+  border: 1px solid rgba(255, 220, 160, 0.75);
+  color: #0B0E13;
+  font-weight: 600;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.08),
-    inset 0 -1px 0 rgba(0,0,0,0.4),
-    0 10px 30px -14px rgba(201,168,106,0.5);
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -1px 0 rgba(0,0,0,0.25),
+    0 14px 40px -14px rgba(228,197,144,0.6),
+    0 2px 0 rgba(0,0,0,0.25);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, filter .25s ease;
+  text-shadow: 0 1px 0 rgba(255,220,160,0.35);
 }
 .shimmer-btn::before {
   content: '';
@@ -52,30 +53,41 @@ h1, h2, h3 { font-family: 'Fraunces', serif; letter-spacing: -0.02em; }
     110deg,
     transparent 0%,
     transparent 35%,
-    rgba(228,197,144,0.0) 45%,
-    rgba(228,197,144,0.35) 50%,
-    rgba(228,197,144,0.0) 55%,
+    rgba(255,255,255,0.0) 45%,
+    rgba(255,255,255,0.7) 50%,
+    rgba(255,255,255,0.0) 55%,
     transparent 65%,
     transparent 100%
   );
   background-size: 200% 100%;
-  animation: shimmer 3.2s linear infinite;
+  animation: shimmer 3s linear infinite;
   pointer-events: none;
-  mix-blend-mode: screen;
+  mix-blend-mode: overlay;
 }
 .shimmer-btn::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(80% 120% at 50% 120%, rgba(201,168,106,0.35) 0%, rgba(201,168,106,0) 60%);
+  background: radial-gradient(80% 120% at 50% 120%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%);
   opacity: 0;
   transition: opacity .3s ease;
   pointer-events: none;
 }
-.shimmer-btn:hover { border-color: rgba(228,197,144,0.75); box-shadow: inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.4), 0 18px 40px -14px rgba(228,197,144,0.55); }
+.shimmer-btn:hover {
+  filter: brightness(1.08);
+  border-color: rgba(255,235,180,0.95);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), inset 0 -1px 0 rgba(0,0,0,0.3), 0 22px 48px -14px rgba(228,197,144,0.75), 0 2px 0 rgba(0,0,0,0.25);
+}
 .shimmer-btn:hover::after { opacity: 1; }
-.shimmer-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.shimmer-btn:disabled::before { animation: none; }
+.shimmer-btn:disabled {
+  background: #1B2029;
+  color: rgba(244,241,234,0.4);
+  border-color: rgba(201,168,106,0.25);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 4px 14px -10px rgba(0,0,0,0.5);
+  text-shadow: none;
+  cursor: not-allowed;
+}
+.shimmer-btn:disabled::before { animation: none; display: none; }
 
 @keyframes shimmer {
   from { background-position: 200% 0; }
@@ -112,6 +124,29 @@ h1, h2, h3 { font-family: 'Fraunces', serif; letter-spacing: -0.02em; }
   background: linear-gradient(90deg, transparent, rgba(201,168,106,0.6), transparent);
   height: 1px;
   width: 100%;
+}
+
+/* Gradientes de texto */
+.text-gradient-gold {
+  background: linear-gradient(100deg, #E4C590 0%, #FFD98A 45%, #C9A86A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-warm {
+  background: linear-gradient(100deg, #FFD98A 0%, #E4C590 50%, #A98A4D 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-emphasis {
+  background: linear-gradient(180deg, #FFEEC2 0%, #E4C590 60%, #B8945C 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* Noise overlay */

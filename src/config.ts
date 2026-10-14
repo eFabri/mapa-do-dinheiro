@@ -6,27 +6,44 @@
 export const WHATSAPP_NUMBER = "5531995728877";
 
 // Duração padrão da tela de transição entre telas (ms)
-export const TRANSITION_MS_DEFAULT = 4000;
+// (~60% do original de 4000 — fluxo mais leve)
+export const TRANSITION_MS_DEFAULT = 2500;
 
 // Overrides por transição (origem->destino). Use índice da tela (0-based).
 // Se não houver override, usa TRANSITION_MS_DEFAULT.
 export const TRANSITION_MS_BY_STEP: Record<string, number> = {
-  // "0-1": 4000,
+  // Diagnóstico merece um beat a mais pra criar expectativa:
+  "6-7": 2900,
 };
 
 // Microfrases do loading por tela de destino (índice 0-based)
 export const LOADING_MESSAGES: string[] = [
   "Abrindo seu Mapa do Dinheiro...",   // -> tela 1
-  "Lendo sua resposta...",             // -> tela 2
-  "Localizando você no mapa...",       // -> tela 3
-  "Entendendo o que te trava...",      // -> tela 4
-  "Marcando seu ponto no mapa...",     // -> tela 5
-  "Analisando sua trajetória...",      // -> tela 6
-  "Projetando seus próximos 5 anos...",// -> tela 7
-  "Montando seu diagnóstico...",       // -> tela 8
-  "Preparando o próximo passo...",     // -> tela 9
-  "Traçando sua rota de saída...",     // -> tela 10
-  "Direcionando ao Danilo...",         // -> tela 11
+  "Analisando sua renda e seus gastos",// -> tela 2
+  "Validando sua resposta",            // -> tela 3
+  "Confirmando o padrão identificado", // -> tela 4
+  "Mapeando seu perfil financeiro",    // -> tela 5
+  "Projetando sua trajetória",         // -> tela 6
+  "Simulando seus próximos 5 anos",    // -> tela 7
+  "Calibrando seu diagnóstico",        // -> tela 8
+  "Montando seu plano de saída",       // -> tela 9
+  "Alocando sua estratégia",           // -> tela 10
+  "Encaminhando ao Danilo",            // -> tela 11
+];
+
+// Variante de loader por tela de destino (0..5 → Bars, Checks, Line, Donut, Dial, Stack)
+export const LOADER_VARIANT_BY_STEP: number[] = [
+  0, // 0 (nunca usado)
+  0, // -> 2 Barras
+  1, // -> 3 Checklist
+  2, // -> 4 Linha
+  3, // -> 5 Donut
+  4, // -> 6 Dial
+  2, // -> 7 Linha
+  3, // -> 8 Donut (diagnóstico sendo calibrado)
+  5, // -> 9 Stack (plano sendo montado)
+  5, // -> 10 Stack
+  1, // -> 11 Checks (encaminhando)
 ];
 
 // Paleta (ajustável). Fonte de verdade em tailwind.config.js e index.css.

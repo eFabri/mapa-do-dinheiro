@@ -26,21 +26,22 @@ export default function ShimmerButton({
     <motion.span
       whileTap={{ scale: disabled ? 1 : 0.97 }}
       transition={{ type: "spring", stiffness: 500, damping: 24 }}
-      className="relative z-10 inline-flex items-center justify-center gap-2 font-medium tracking-wide"
+      className="relative z-10 inline-flex items-center justify-center gap-2.5 font-semibold tracking-wide"
+      style={{ color: disabled ? undefined : "#0B0E13" }}
     >
-      {children}
+      <span>{children}</span>
       <svg
-        width="14"
-        height="14"
+        width="16"
+        height="16"
         viewBox="0 0 24 24"
         fill="none"
-        className="opacity-70"
+        className="opacity-85"
         aria-hidden
       >
         <path
           d="M5 12h14M13 5l7 7-7 7"
           stroke="currentColor"
-          strokeWidth="1.6"
+          strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -49,7 +50,7 @@ export default function ShimmerButton({
   );
 
   const className =
-    "shimmer-btn group relative inline-flex items-center justify-center rounded-full px-7 py-4 text-[0.95rem] sm:text-base w-full sm:w-auto min-h-[52px]";
+    "shimmer-btn group relative inline-flex items-center justify-center rounded-full px-8 py-4 text-[0.98rem] sm:text-base w-full sm:w-auto min-h-[54px]";
 
   if (as === "a") {
     return (

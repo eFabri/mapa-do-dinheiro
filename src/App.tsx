@@ -5,12 +5,13 @@ import {
   TRANSITION_MS_DEFAULT,
   TRANSITION_MS_BY_STEP,
   LOADING_MESSAGES,
+  LOADER_VARIANT_BY_STEP,
   STAGE_LABELS,
   DANILO_PHOTO,
   type Stage,
 } from "./config";
 import { SCREENS, DIAGNOSIS, DIAGNOSIS_CLOSING, type Option } from "./content";
-import MapLogo from "./components/MapLogo";
+import WealthChart from "./components/WealthChart";
 import ShimmerButton from "./components/ShimmerButton";
 import OptionList from "./components/OptionList";
 import Loading from "./components/Loading";
@@ -28,6 +29,7 @@ export default function App() {
   const [selected, setSelected] = useState<Record<number, Option>>({});
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
+  const [loadingVariant, setLoadingVariant] = useState(0);
   const reduceMotion = useReducedMotion();
 
   const screen = SCREENS[step];
@@ -57,6 +59,7 @@ export default function App() {
     const duration = reduceMotion ? Math.min(base, 500) : base;
 
     setLoadingMsg(LOADING_MESSAGES[nextStep] || "Carregando...");
+    setLoadingVariant(LOADER_VARIANT_BY_STEP[nextStep] ?? nextStep % 6);
     setLoading(true);
     window.setTimeout(() => {
       setStep(nextStep);
@@ -118,7 +121,7 @@ export default function App() {
 
       <AnimatePresence mode="wait">
         {loading ? (
-          <Loading key="loader" message={loadingMsg} />
+          <Loading key="loader" message={loadingMsg} variant={loadingVariant} />
         ) : (
           <motion.main
             key={`screen-${step}`}
@@ -167,62 +170,68 @@ export default function App() {
 function IntroScreen({ onNext }: { onNext: () => void }) {
   const s = SCREENS[0];
   return (
-    <div className="max-w-2xl mx-auto flex flex-col items-center text-center">
+    <div
+      className="max-w-2xl mx-auto flex flex-col items-center text-center justify-between"
+      style={{ minHeight: "calc(100vh - 92px)" }}
+    >
+      {/* Topo: gráfico financeiro premium */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-        className="animate-drift"
+        transition={{ duration: 1.1, ease: "easeOut" }}
+        className="w-full flex justify-center mt-2 sm:mt-6 animate-drift"
       >
-        <MapLogo size={220} />
+        <WealthChart size={280} />
       </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.8 }}
-        className="mt-2 flex items-center gap-3 text-[0.65rem] uppercase tracking-[0.4em] text-gold-500"
-      >
-        <span className="w-6 h-px bg-gold-500/50" />
-        Danilo Mello · Planejador Financeiro
-        <span className="w-6 h-px bg-gold-500/50" />
-      </motion.div>
+      {/* Centro: promessa compacta com gradientes */}
+      <div className="flex flex-col items-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="text-[1.55rem] sm:text-[2.4rem] font-serif font-medium leading-[1.12] max-w-md"
+        >
+          <span className="text-bone-50">Descubra em </span>
+          <span className="text-gradient-emphasis italic">2 minutos</span>
+          <span className="text-bone-50"> por que seu dinheiro</span>
+          <br />
+          <span className="text-gradient-gold font-semibold">não sai do lugar.</span>
+        </motion.h1>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="mt-6 text-[1.65rem] sm:text-4xl font-serif font-medium text-bone-50 leading-[1.15] max-w-xl"
-      >
-        {s.title}
-      </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.65, duration: 0.9 }}
+          className="mt-4 text-[0.95rem] sm:text-[1.05rem] text-bone-100/85 leading-relaxed max-w-sm"
+        >
+          Não importa se sobra muito, pouco ou nada.
+          <br />
+          <span className="text-bone-50 font-medium">O problema é o mesmo</span> — e tem um ponto certo no mapa.
+        </motion.p>
+      </div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1, duration: 0.9 }}
-        className="mt-6 text-bone-100/80 leading-relaxed whitespace-pre-line max-w-xl"
-      >
-        {s.body}
-      </motion.p>
+      {/* Base: CTA + microcópia */}
+      <div className="w-full flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
+          className="w-full sm:w-auto"
+        >
+          <ShimmerButton onClick={onNext}>{s.cta}</ShimmerButton>
+        </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 0.7 }}
-        className="mt-10 w-full sm:w-auto"
-      >
-        <ShimmerButton onClick={onNext}>{s.cta}</ShimmerButton>
-      </motion.div>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 1 }}
-        className="mt-6 text-[0.72rem] tracking-widest uppercase text-bone-300"
-      >
-        Diagnóstico leva ~2 minutos · sigiloso
-      </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.9 }}
+          className="mt-4 text-[0.68rem] tracking-[0.3em] uppercase text-bone-300 flex items-center gap-2"
+        >
+          <span className="w-1 h-1 rounded-full bg-gold-400 animate-pulseGold" />
+          Diagnóstico sigiloso · ~2 min
+        </motion.p>
+      </div>
     </div>
   );
 }
