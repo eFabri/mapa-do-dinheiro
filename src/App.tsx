@@ -11,7 +11,7 @@ import {
   type Stage,
 } from "./config";
 import { SCREENS, DIAGNOSIS, DIAGNOSIS_CLOSING, type Option } from "./content";
-import WealthChart from "./components/WealthChart";
+import Compass from "./components/Compass";
 import ShimmerButton from "./components/ShimmerButton";
 import OptionList from "./components/OptionList";
 import Loading from "./components/Loading";
@@ -74,8 +74,8 @@ export default function App() {
   const whatsappHref = useMemo(() => {
     const label = STAGE_LABELS[stage];
     const parts = [
-      `Olá Danilo! Acabei de fazer meu Mapa do Dinheiro.`,
-      `Meu resultado: ${label} (${stage}).`,
+      `Olá Danilo! Acabei de fazer meu Diagnóstico Financeiro Emocional.`,
+      `Meu perfil: ${label} (${stage}).`,
       answers["block"] ? `O que mais me trava: ${answers["block"]}.` : "",
       answers["trajectory"] ? `Últimos 2–3 anos: ${answers["trajectory"]}.` : "",
       answers["readiness"] ? `Prontidão: ${answers["readiness"]}.` : "",
@@ -111,7 +111,7 @@ export default function App() {
         <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.28em] text-bone-300">
             <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulseGold" />
-            Mapa do Dinheiro
+            Diagnóstico · Danilo Mello
           </div>
           <div className="text-[0.68rem] tracking-[0.2em] text-bone-300/70">
             {String(step + 1).padStart(2, "0")} / {String(totalSteps).padStart(2, "0")}
@@ -174,15 +174,28 @@ function IntroScreen({ onNext }: { onNext: () => void }) {
       className="max-w-2xl mx-auto flex flex-col items-center text-center justify-between"
       style={{ minHeight: "calc(100vh - 92px)" }}
     >
-      {/* Topo: gráfico financeiro premium */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.1, ease: "easeOut" }}
-        className="w-full flex justify-center mt-2 sm:mt-6 animate-drift"
-      >
-        <WealthChart size={280} />
-      </motion.div>
+      {/* Topo: bússola animada + selo do produto */}
+      <div className="flex flex-col items-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
+          className="w-full flex justify-center mt-1 sm:mt-4 animate-drift"
+        >
+          <Compass size={220} />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.7 }}
+          className="mt-3 flex items-center gap-3 text-[0.6rem] uppercase tracking-[0.4em] text-gold-500"
+        >
+          <span className="w-5 h-px bg-gold-500/50" />
+          Diagnóstico Financeiro Emocional
+          <span className="w-5 h-px bg-gold-500/50" />
+        </motion.div>
+      </div>
 
       {/* Centro: promessa compacta com gradientes */}
       <div className="flex flex-col items-center">
@@ -190,24 +203,21 @@ function IntroScreen({ onNext }: { onNext: () => void }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-[1.55rem] sm:text-[2.4rem] font-serif font-medium leading-[1.12] max-w-md"
+          className="text-[1.35rem] sm:text-[2rem] font-serif font-medium leading-[1.18] max-w-md"
         >
-          <span className="text-bone-50">Descubra em </span>
-          <span className="text-gradient-emphasis italic">2 minutos</span>
-          <span className="text-bone-50"> por que seu dinheiro</span>
-          <br />
-          <span className="text-gradient-gold font-semibold">não sai do lugar.</span>
+          <span className="text-bone-50">Descubra qual é o seu </span>
+          <span className="text-gradient-emphasis italic">perfil emocional com o dinheiro</span>
+          <span className="text-bone-50">, identifique o que te trava e receba o que fazer para ver o dinheiro sobrar.</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.65, duration: 0.9 }}
-          className="mt-4 text-[0.95rem] sm:text-[1.05rem] text-bone-100/85 leading-relaxed max-w-sm"
+          className="mt-3 text-[0.88rem] sm:text-[0.98rem] text-bone-100/85 leading-relaxed max-w-sm"
         >
-          Não importa se sobra muito, pouco ou nada.
-          <br />
-          <span className="text-bone-50 font-medium">O problema é o mesmo</span> — e tem um ponto certo no mapa.
+          Independente da sua situação financeira — se você já investe ou ainda não tem clareza — o diagnóstico te dá o caminho certo para{" "}
+          <span className="text-gradient-gold font-semibold">ver o dinheiro sobrar e multiplicar</span> com a técnica certa.
         </motion.p>
       </div>
 
@@ -321,10 +331,10 @@ function DiagnosisScreen(props: {
         transition={{ delay: 0.1, duration: 0.7 }}
         className="mt-4 text-2xl sm:text-3xl font-serif font-medium text-bone-50 leading-[1.2]"
       >
-        Seu Mapa do Dinheiro está pronto. Aqui está o que ele mostra:
+        Seu Diagnóstico Financeiro Emocional está pronto. Aqui está o seu perfil:
       </motion.h2>
 
-      {/* Mapa com os 4 pontos destacando o estágio */}
+      {/* Barra visual com os 4 perfis destacando o seu */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -461,7 +471,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
             transition={{ delay: 0.1, duration: 0.7 }}
             className="mt-4 text-[1.9rem] sm:text-4xl font-serif font-medium text-bone-50 leading-[1.15]"
           >
-            Pronto. Seu Mapa do Dinheiro vai direto pro Danilo.
+            Pronto. Seu Diagnóstico vai direto pro Danilo.
           </motion.h2>
 
           <motion.p
@@ -471,7 +481,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
             className="mt-5 text-bone-100/85 leading-relaxed"
           >
             O Danilo Mello é planejador financeiro e já ajudou pessoas em todos esses
-            pontos do mapa — do “não sei pra onde vai meu dinheiro” até “sobra, mas não
+            perfis — do “não sei pra onde vai meu dinheiro” até “sobra, mas não
             vira nada” — a assumir o controle e transformar renda em patrimônio e
             projetos realizados.
           </motion.p>
@@ -483,8 +493,8 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
             className="mt-6 space-y-3"
           >
             {[
-              "Ler seu Mapa do Dinheiro",
-              "Te mostrar o próximo passo pra sair do seu ponto",
+              "Ler seu Diagnóstico",
+              "Te mostrar o próximo passo pra evoluir do seu perfil",
               "Explicar como funciona o acompanhamento individual",
             ].map((item, i) => (
               <motion.li
@@ -515,7 +525,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
               target="_blank"
               rel="noopener noreferrer"
             >
-              Falar com o Danilo agora (WhatsApp)
+              Falar com o Danilo no WhatsApp
             </ShimmerButton>
           </motion.div>
 
@@ -586,7 +596,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
       <div className="mt-16 text-center">
         <div className="gold-hairline w-32 mx-auto mb-6" />
         <p className="text-xs text-bone-300 tracking-widest uppercase">
-          Mapa do Dinheiro · Danilo Mello
+          Diagnóstico Financeiro Emocional · Danilo Mello
         </p>
       </div>
     </div>

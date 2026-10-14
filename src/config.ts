@@ -1,5 +1,5 @@
 // ======================================================================
-// MAPA DO DINHEIRO — Configurações editáveis
+// DIAGNÓSTICO FINANCEIRO EMOCIONAL — Configurações editáveis
 // ======================================================================
 
 // WhatsApp (cliente informou "+55 31 9572-8877" — assumido 9 extra do celular)
@@ -18,17 +18,17 @@ export const TRANSITION_MS_BY_STEP: Record<string, number> = {
 
 // Microfrases do loading por tela de destino (índice 0-based)
 export const LOADING_MESSAGES: string[] = [
-  "Abrindo seu Mapa do Dinheiro...",   // -> tela 1
-  "Analisando sua renda e seus gastos",// -> tela 2
-  "Validando sua resposta",            // -> tela 3
-  "Confirmando o padrão identificado", // -> tela 4
-  "Mapeando seu perfil financeiro",    // -> tela 5
-  "Projetando sua trajetória",         // -> tela 6
-  "Simulando seus próximos 5 anos",    // -> tela 7
-  "Calibrando seu diagnóstico",        // -> tela 8
-  "Montando seu plano de saída",       // -> tela 9
-  "Alocando sua estratégia",           // -> tela 10
-  "Encaminhando ao Danilo",            // -> tela 11
+  "Abrindo seu Diagnóstico...",            // -> tela 1
+  "Lendo sua relação com o dinheiro",      // -> tela 2
+  "Validando sua resposta",                // -> tela 3
+  "Confirmando o padrão identificado",     // -> tela 4
+  "Encontrando sua direção",               // -> tela 5
+  "Projetando sua trajetória",             // -> tela 6
+  "Simulando seus próximos 5 anos",        // -> tela 7
+  "Calibrando seu perfil",                 // -> tela 8
+  "Montando seu plano de evolução",        // -> tela 9
+  "Alocando sua estratégia",               // -> tela 10
+  "Encaminhando ao Danilo",                // -> tela 11
 ];
 
 // Variante de loader por tela de destino (0..5 → Bars, Checks, Line, Donut, Dial, Stack)

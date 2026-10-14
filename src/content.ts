@@ -18,10 +18,10 @@ export const SCREENS: Screen[] = [
     index: 0,
     kind: "intro",
     title:
-      "Não importa se sobra muito, pouco ou nada. Se você sente que não sai do lugar, o problema é o mesmo.",
+      "Descubra qual é o seu perfil emocional com o dinheiro, identifique o que te trava e receba o que fazer para ver o dinheiro sobrar.",
     body:
-      "Tem gente que fecha o mês no zero a zero sem saber para onde o dinheiro foi. Tem gente que consegue fazer sobrar, mas não sabe o quanto é preciso para realizar seus projetos e conseguir sua liberdade financeira. Já outros conseguem fazer sobrar, mas não têm uma estratégia adequada para investir e multiplicar esse patrimônio.\n\nParece diferente. Mas é a mesma raiz: dinheiro sem controle e sem plano não evolui — por mais que você se esforce.",
-    cta: "Quero descobrir meu Mapa do Dinheiro",
+      "Independente da sua situação financeira — se você já investe ou ainda não tem clareza — o diagnóstico te dá o caminho certo para ver o dinheiro sobrar e multiplicar com a técnica certa.",
+    cta: "Fazer meu Diagnóstico",
   },
   // Tela 2 — captura o estágio
   {
@@ -57,10 +57,10 @@ export const SCREENS: Screen[] = [
   {
     index: 3,
     kind: "intro",
-    title: "Existe um mapa. E todo mundo está num de quatro pontos dele.",
+    title: "Existe um diagnóstico. E ele revela qual dos quatro perfis é o seu.",
     body:
-      "Depois de acompanhar muita gente, o planejador Danilo Mello percebeu que o problema quase nunca é o quanto a pessoa ganha. É onde ela está no Mapa do Dinheiro:\n\n• No escuro — o mês fecha e você não sabe pra onde foi\n• Refém do hábito — a renda existe, mas o consumo descontrolado a consome\n• Quase lá — já sobra algo, mas sem plano ele escorre pelos dedos\n• Sobra sem rumo — sobra bem, mas o dinheiro fica parado ou mal usado\n\nO ponto mais importante: o plano pra sair é diferente em cada ponto. Por isso conselho genérico de internet nunca funcionou pra você.\n\nAs próximas perguntas revelam onde você está no mapa.",
-    cta: "Descobrir meu ponto no mapa",
+      "Depois de acompanhar muita gente, o planejador Danilo Mello percebeu que o problema quase nunca é o quanto a pessoa ganha — é a sua relação emocional com o dinheiro. E ela quase sempre cai num de quatro perfis:\n\n• No escuro — o mês fecha e você não sabe pra onde o dinheiro foi\n• Refém do hábito — a renda existe, mas o consumo descontrolado a consome\n• Quase lá — já sobra algo, mas sem plano ele escorre pelos dedos\n• Sobra sem rumo — sobra bem, mas o dinheiro fica parado ou mal usado\n\nO ponto mais importante: o caminho pra evoluir é diferente em cada perfil. Por isso conselho genérico de internet nunca funcionou pra você.\n\nAs próximas perguntas revelam qual é o seu perfil.",
+    cta: "Descobrir meu perfil",
   },
   // Tela 5
   {
@@ -109,8 +109,8 @@ export const SCREENS: Screen[] = [
   {
     index: 7,
     kind: "diagnosis",
-    title: "Seu Mapa do Dinheiro está pronto. Aqui está o que ele mostra:",
-    cta: "E como eu saio desse ponto?",
+    title: "Seu Diagnóstico Financeiro Emocional está pronto. Aqui está o seu perfil:",
+    cta: "E como eu evoluo daqui?",
   },
   // Tela 9
   {
@@ -118,7 +118,7 @@ export const SCREENS: Screen[] = [
     kind: "question",
     title: "Antes de te mostrar o próximo passo, só mais uma coisa:",
     body:
-      "Sair do seu ponto no mapa e chegar aos seus projetos não é sorte nem fórmula pronta. É um plano ajustado pra sua realidade, com alguém acompanhando de perto. Como você se vê nisso hoje?",
+      "Sair do seu perfil atual e chegar aos seus projetos não é sorte nem fórmula pronta. É um plano ajustado pra sua realidade, com alguém acompanhando de perto. Como você se vê nisso hoje?",
     stageKey: "readiness",
     options: [
       { id: "a", label: "Estou pronto pra ter um plano profissional e parar de improvisar" },
@@ -145,9 +145,9 @@ export const SCREENS: Screen[] = [
   {
     index: 10,
     kind: "cta",
-    title: "Pronto. Seu Mapa do Dinheiro vai direto pro Danilo.",
+    title: "Pronto. Seu Diagnóstico vai direto pro Danilo.",
     body:
-      "O Danilo Mello é planejador financeiro e já ajudou pessoas em todos esses pontos do mapa — do “não sei pra onde vai meu dinheiro” até “sobra, mas não vira nada” — a assumir o controle e transformar renda em patrimônio e projetos realizados.",
+      "O Danilo Mello é planejador financeiro e já ajudou pessoas em todos esses perfis — do “não sei pra onde vai meu dinheiro” até “sobra, mas não vira nada” — a assumir o controle e transformar renda em patrimônio e projetos realizados.",
     cta: "Falar com o Danilo agora",
   },
 ];
@@ -176,4 +176,4 @@ export const DIAGNOSIS: Record<Stage, { headline: string; body: string }> = {
 };
 
 export const DIAGNOSIS_CLOSING =
-  "Esse é o diagnóstico — onde você está no mapa. Mas saber onde você está não te tira do lugar. O que transforma é o plano certo pro seu ponto — e colocá-lo em prática com acompanhamento.";
+  "Esse é o seu perfil — a sua relação atual com o dinheiro. Mas saber qual é o seu perfil não te tira do lugar. O que transforma é o caminho certo pro seu perfil — e colocá-lo em prática com acompanhamento.";
