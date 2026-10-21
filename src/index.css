@@ -126,7 +126,13 @@ h1, h2, h3 { font-family: 'Fraunces', serif; letter-spacing: -0.02em; }
   width: 100%;
 }
 
-/* Gradientes de texto */
+/* Gradientes de texto (padding compensado evita cortar a última letra em itálico) */
+.text-gradient-gold, .text-gradient-warm, .text-gradient-emphasis, .text-glow-gold {
+  padding-right: 0.08em;
+  margin-right: -0.08em;
+  -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+}
 .text-gradient-gold {
   background: linear-gradient(100deg, #E4C590 0%, #FFD98A 45%, #C9A86A 100%);
   -webkit-background-clip: text;
@@ -147,6 +153,54 @@ h1, h2, h3 { font-family: 'Fraunces', serif; letter-spacing: -0.02em; }
           background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+
+/* Shimmer dourado em texto — brilho percorrendo as letras */
+.text-shimmer-gold {
+  background: linear-gradient(
+    100deg,
+    #A98A4D 0%,
+    #C9A86A 30%,
+    #FFF4D6 48%,
+    #FFD98A 52%,
+    #C9A86A 70%,
+    #A98A4D 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: text-shimmer 4.5s ease-in-out infinite;
+}
+@keyframes text-shimmer {
+  0% { background-position: 100% 0; }
+  60%, 100% { background-position: 0% 0; }
+}
+
+/* Degradê + brilho (glow) para o destaque do CTA final */
+.text-glow-gold {
+  background: linear-gradient(100deg, #FFEEC2 0%, #FFD98A 40%, #E4C590 70%, #C9A86A 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 0 10px rgba(255, 217, 138, 0.45));
+  animation: text-glow 3.2s ease-in-out infinite;
+}
+@keyframes text-glow {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(255, 217, 138, 0.3)); }
+  50% { filter: drop-shadow(0 0 14px rgba(255, 217, 138, 0.6)); }
+}
+
+/* Blur dos balões de solicitação nos prints de depoimento */
+.print-redact {
+  position: absolute;
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(7px);
+          backdrop-filter: blur(7px);
+  background: rgba(220, 248, 198, 0.25);
+  pointer-events: none;
 }
 
 /* Noise overlay */
@@ -194,6 +248,7 @@ h1, h2, h3 { font-family: 'Fraunces', serif; letter-spacing: -0.02em; }
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .shimmer-btn::before { animation: none !important; }
+  .text-shimmer-gold, .text-glow-gold { animation: none !important; }
   .animate-pulseGold, .animate-drift { animation: none !important; }
 }
 

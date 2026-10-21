@@ -6,14 +6,14 @@
 export const WHATSAPP_NUMBER = "5531995728877";
 
 // Duração padrão da tela de transição entre telas (ms)
-// (~60% do original de 4000 — fluxo mais leve)
-export const TRANSITION_MS_DEFAULT = 2500;
+// (~85% do original de 4000)
+export const TRANSITION_MS_DEFAULT = 3400;
 
 // Overrides por transição (origem->destino). Use índice da tela (0-based).
 // Se não houver override, usa TRANSITION_MS_DEFAULT.
 export const TRANSITION_MS_BY_STEP: Record<string, number> = {
   // Diagnóstico merece um beat a mais pra criar expectativa:
-  "6-7": 2900,
+  "6-7": 3900,
 };
 
 // Microfrases do loading por tela de destino (índice 0-based)
@@ -28,22 +28,22 @@ export const LOADING_MESSAGES: string[] = [
   "Calibrando seu perfil",                 // -> tela 8
   "Montando seu plano de evolução",        // -> tela 9
   "Alocando sua estratégia",               // -> tela 10
-  "Encaminhando ao Danilo",                // -> tela 11
+  "Encaminhando seu diagnóstico",          // -> tela 11
 ];
 
 // Variante de loader por tela de destino (0..5 → Bars, Checks, Line, Donut, Dial, Stack)
 export const LOADER_VARIANT_BY_STEP: number[] = [
   0, // 0 (nunca usado)
-  0, // -> 2 Barras
-  1, // -> 3 Checklist
-  2, // -> 4 Linha
-  3, // -> 5 Donut
-  4, // -> 6 Dial
-  2, // -> 7 Linha
-  3, // -> 8 Donut (diagnóstico sendo calibrado)
-  5, // -> 9 Stack (plano sendo montado)
-  5, // -> 10 Stack
-  1, // -> 11 Checks (encaminhando)
+  0, // -> 2 Barras ("Lendo sua relação com o dinheiro")
+  1, // -> 3 Checklist ("Validando sua resposta")
+  3, // -> 4 Donut ("Confirmando o padrão identificado")
+  4, // -> 5 Dial ("Encontrando sua direção")
+  2, // -> 6 Linha ("Projetando sua trajetória")
+  2, // -> 7 Linha ("Simulando seus próximos 5 anos")
+  4, // -> 8 Dial — escreve CALIBRANDO ("Calibrando seu perfil")
+  5, // -> 9 Stack ("Montando seu plano de evolução")
+  5, // -> 10 Stack ("Alocando sua estratégia")
+  1, // -> 11 Checks ("Encaminhando seu diagnóstico")
 ];
 
 // Paleta (ajustável). Fonte de verdade em tailwind.config.js e index.css.
@@ -77,6 +77,9 @@ export type Testimonial = {
   print: string;
   quote: string;
   featured: boolean;
+  // Balões em que o Danilo pede o depoimento — recebem blur.
+  // w/h = dimensões do print em px; caixas em % do print.
+  redact?: { w: number; h: number; boxes: { x: number; y: number; w: number; h: number }[] };
 };
 
 export const TESTIMONIALS: Testimonial[] = [
@@ -99,6 +102,8 @@ export const TESTIMONIALS: Testimonial[] = [
     quote:
       "Só tenho a agradecer ao Danilo pelo excelente trabalho. Após a consultoria, tudo ficou mais claro e organizado. Hoje, sabemos exatamente quanto ganhamos e gastamos. Sou muito grato por todo o acompanhamento. Clareza e ensinamentos que fazem a diferença!",
     featured: true,
+    // "É apenas umas 6 linhas. Para caber no print"
+    redact: { w: 414, h: 632, boxes: [{ x: 14, y: 9, w: 86, h: 10.5 }] },
   },
   {
     id: "cliente-reserva",
@@ -139,6 +144,8 @@ export const TESTIMONIALS: Testimonial[] = [
     quote:
       "Danilo é um profissional extremamente completo, com elevado nível de competências técnicas, sempre atento às boas práticas do mercado financeiro, que nos possibilita rápido aprendizado e, sobretudo, mudanças comportamentais. Quando fiz o curso com o Danilo, estava vivendo uma desorganização financeira e a mentoria me ensinou os caminhos e como se organizar para viver um planejamento financeiro estruturado.",
     featured: false,
+    // "...gostaria de contar com seu apoio. Consegue me enviar?"
+    redact: { w: 424, h: 642, boxes: [{ x: 12.5, y: 7.8, w: 87.5, h: 10 }] },
   },
   {
     id: "rodrigo-araujo",

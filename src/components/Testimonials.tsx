@@ -2,6 +2,24 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TESTIMONIALS, type Testimonial } from "../config";
 
+// Camada com o mesmo aspect ratio do print, ancorada no topo (como o object-top
+// do card): as caixas em % caem sobre os balões de solicitação do Danilo.
+function Redactions({ t }: { t: Testimonial }) {
+  if (!t.redact) return null;
+  const { w, h, boxes } = t.redact;
+  return (
+    <div className="absolute inset-x-0 top-0 pointer-events-none" style={{ aspectRatio: `${w} / ${h}` }} aria-hidden>
+      {boxes.map((b, i) => (
+        <div
+          key={i}
+          className="print-redact"
+          style={{ left: `${b.x}%`, top: `${b.y}%`, width: `${b.w}%`, height: `${b.h}%` }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function PrintCard({ t, i, onOpen }: { t: Testimonial; i: number; onOpen: (t: Testimonial) => void }) {
   return (
     <motion.button
@@ -30,12 +48,15 @@ function PrintCard({ t, i, onOpen }: { t: Testimonial; i: number; onOpen: (t: Te
 
           {/* Print em dimensão fixa — object-cover garante grid uniforme */}
           <div className="relative w-full aspect-[4/5] overflow-hidden bg-ink-900">
-            <img
-              src={t.print}
-              alt={`Depoimento de ${t.name}`}
-              loading="lazy"
-              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
-            />
+            <div className="relative w-full h-full transition-transform duration-700 group-hover:scale-[1.03] origin-top">
+              <img
+                src={t.print}
+                alt={`Depoimento de ${t.name}`}
+                loading="lazy"
+                className="w-full h-full object-cover object-top"
+              />
+              <Redactions t={t} />
+            </div>
             {/* overlay sutil para integrar o verde cru à paleta */}
             <div
               className="absolute inset-0 pointer-events-none"
@@ -87,6 +108,7 @@ function Lightbox({ t, onClose }: { t: Testimonial; onClose: () => void }) {
         <div className="relative rounded-2xl p-[1.5px] bg-gradient-to-br from-gold-300 via-gold-500/40 to-gold-700 shadow-gold">
           <div className="relative rounded-[14px] overflow-hidden bg-ink-900">
             <img src={t.print} alt={`Print do WhatsApp — ${t.name}`} className="w-full h-auto block" />
+            <Redactions t={t} />
           </div>
         </div>
         <button
@@ -113,10 +135,10 @@ export default function Testimonials() {
   return (
     <div className="w-full">
       <div className="text-center mb-7">
-        <div className="inline-flex items-center gap-3 text-[0.68rem] uppercase tracking-[0.3em] text-gold-500">
-          <span className="w-6 h-px bg-gold-500/60" />
-          Prints reais de quem já saiu do ponto
-          <span className="w-6 h-px bg-gold-500/60" />
+        <div className="inline-flex items-center gap-3 text-[0.68rem] uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold-500 max-w-xl leading-relaxed">
+          <span className="w-6 h-px bg-gold-500/60 shrink-0" />
+          <span className="text-balance">Depoimentos de clientes que tiveram suas vidas financeiras transformadas</span>
+          <span className="w-6 h-px bg-gold-500/60 shrink-0" />
         </div>
       </div>
 

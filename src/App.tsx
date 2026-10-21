@@ -16,6 +16,7 @@ import ShimmerButton from "./components/ShimmerButton";
 import OptionList from "./components/OptionList";
 import Loading from "./components/Loading";
 import Testimonials from "./components/Testimonials";
+import RichText from "./components/RichText";
 
 type Answers = {
   stage?: Stage;
@@ -108,13 +109,14 @@ export default function App() {
             transition={{ duration: 0.6, ease: "easeOut" }}
           />
         </div>
-        <div className="max-w-3xl mx-auto px-5 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.28em] text-bone-300">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulseGold" />
-            Diagnóstico · Danilo Mello
+        {/* Título centralizado; contador ancorado à direita sem deslocar o centro */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-5 py-3 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <span aria-hidden />
+          <div className="text-[0.6rem] sm:text-[0.68rem] uppercase tracking-[0.14em] sm:tracking-[0.28em] whitespace-nowrap text-center">
+            <span className="text-shimmer-gold font-medium">Diagnóstico Financeiro Emocional</span>
           </div>
-          <div className="text-[0.68rem] tracking-[0.2em] text-bone-300/70">
-            {String(step + 1).padStart(2, "0")} / {String(totalSteps).padStart(2, "0")}
+          <div className="justify-self-end text-[0.6rem] sm:text-[0.68rem] tracking-[0.1em] sm:tracking-[0.2em] text-bone-300/70 whitespace-nowrap">
+            {String(step + 1).padStart(2, "0")}/{String(totalSteps).padStart(2, "0")}
           </div>
         </div>
       </div>
@@ -174,50 +176,37 @@ function IntroScreen({ onNext }: { onNext: () => void }) {
       className="max-w-2xl mx-auto flex flex-col items-center text-center justify-between"
       style={{ minHeight: "calc(100vh - 92px)" }}
     >
-      {/* Topo: bússola animada + selo do produto */}
-      <div className="flex flex-col items-center">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, ease: "easeOut" }}
-          className="w-full flex justify-center mt-1 sm:mt-4 animate-drift"
-        >
-          <Compass size={220} />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.7 }}
-          className="mt-3 flex items-center gap-3 text-[0.6rem] uppercase tracking-[0.4em] text-gold-500"
-        >
-          <span className="w-5 h-px bg-gold-500/50" />
-          Diagnóstico Financeiro Emocional
-          <span className="w-5 h-px bg-gold-500/50" />
-        </motion.div>
-      </div>
+      {/* Topo: bússola animada, logo abaixo do título do header */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.92 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.1, ease: "easeOut" }}
+        className="w-full flex justify-center -mt-8 sm:-mt-4 animate-drift"
+      >
+        <Compass size={220} />
+      </motion.div>
 
       {/* Centro: promessa compacta com gradientes */}
-      <div className="flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
         <motion.h1
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-[1.35rem] sm:text-[2rem] font-serif font-medium leading-[1.18] max-w-md"
+          className="text-[1.4rem] sm:text-[2rem] font-serif font-medium leading-[1.2] w-full max-w-xl text-balance"
         >
           <span className="text-bone-50">Descubra qual é o seu </span>
           <span className="text-gradient-emphasis italic">perfil emocional com o dinheiro</span>
-          <span className="text-bone-50">, identifique o que te trava e receba o que fazer para ver o dinheiro sobrar.</span>
+          <span className="text-bone-50">, identifique o que te trava e veja o que fazer para ver o dinheiro sobrar.</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.65, duration: 0.9 }}
-          className="mt-3 text-[0.88rem] sm:text-[0.98rem] text-bone-100/85 leading-relaxed max-w-sm"
+          className="mt-4 text-[0.92rem] sm:text-[0.98rem] text-bone-100/85 leading-relaxed w-full max-w-lg text-balance"
         >
-          Independente da sua situação financeira — se você já investe ou ainda não tem clareza — o diagnóstico te dá o caminho certo para{" "}
-          <span className="text-gradient-gold font-semibold">ver o dinheiro sobrar e multiplicar</span> com a técnica certa.
+          Independente da sua situação financeira — se você já investe ou ainda não tem clareza — o diagnóstico te dá{" "}
+          <span className="text-gradient-gold font-semibold">o caminho certo</span>.
         </motion.p>
       </div>
 
@@ -270,14 +259,14 @@ function StandardScreen(props: {
       </motion.h2>
 
       {body && (
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.7 }}
-          className="mt-4 text-bone-100/80 leading-relaxed whitespace-pre-line"
+          className="mt-4"
         >
-          {body}
-        </motion.p>
+          <RichText text={body} className="text-bone-100/80 leading-relaxed" />
+        </motion.div>
       )}
 
       <div className="my-7 gold-hairline" />
@@ -341,7 +330,7 @@ function DiagnosisScreen(props: {
         transition={{ delay: 0.35, duration: 0.9 }}
         className="mt-8 relative rounded-2xl border border-gold-500/25 bg-gradient-to-b from-ink-700/60 to-ink-800/60 backdrop-blur-sm p-6"
       >
-        <svg viewBox="0 0 320 110" width="100%" height="110" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 320 124" width="100%" height="124" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="dg-route" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#C9A86A" stopOpacity="0.4" />
@@ -349,17 +338,18 @@ function DiagnosisScreen(props: {
             </linearGradient>
           </defs>
           <path
-            d="M 20 80 C 70 50, 110 90, 160 60 S 250 30, 300 50"
+            d="M 36 76 C 70 56, 90 92, 118 86 S 190 50, 216 56 S 262 44, 284 46"
             fill="none"
             stroke="url(#dg-route)"
             strokeWidth="1.6"
             strokeDasharray="4 6"
           />
+          {/* Labels em 2 linhas e pontos recuados das bordas: cabem inteiros no mobile */}
           {[
-            { x: 20, y: 80, label: "No escuro" },
-            { x: 110, y: 90, label: "Refém do hábito" },
-            { x: 220, y: 55, label: "Quase lá" },
-            { x: 300, y: 50, label: "Sobra sem rumo" },
+            { x: 36, y: 76, label: ["No escuro"] },
+            { x: 118, y: 86, label: ["Refém do", "hábito"] },
+            { x: 216, y: 56, label: ["Quase lá"] },
+            { x: 284, y: 46, label: ["Sobra", "sem rumo"] },
           ].map((p, i) => {
             const active = i === stageIndex;
             return (
@@ -385,14 +375,18 @@ function DiagnosisScreen(props: {
                 />
                 <text
                   x={p.x}
-                  y={p.y + 20}
+                  y={p.y + 19}
                   textAnchor="middle"
-                  fontSize="7"
+                  fontSize="8"
                   fill={active ? "#E4C590" : "#8E8A80"}
                   fontFamily="Inter"
-                  style={{ letterSpacing: "0.1em", textTransform: "uppercase" }}
+                  style={{ letterSpacing: "0.08em", textTransform: "uppercase" }}
                 >
-                  {p.label}
+                  {p.label.map((line, j) => (
+                    <tspan key={j} x={p.x} dy={j === 0 ? 0 : 10}>
+                      {line}
+                    </tspan>
+                  ))}
                 </text>
               </g>
             );
@@ -410,14 +404,14 @@ function DiagnosisScreen(props: {
         <div className="mt-1 font-serif text-3xl sm:text-4xl text-bone-50 italic">{headline}</div>
       </motion.div>
 
-      <motion.p
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.75, duration: 0.9 }}
-        className="mt-5 text-bone-100/90 leading-relaxed"
+        className="mt-5"
       >
-        {body}
-      </motion.p>
+        <RichText text={body} className="text-bone-100/90 leading-relaxed" />
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -426,14 +420,13 @@ function DiagnosisScreen(props: {
         className="my-7 gold-hairline"
       />
 
-      <motion.p
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.9 }}
-        className="text-bone-100/80 leading-relaxed italic"
       >
-        {closing}
-      </motion.p>
+        <RichText text={closing} className="text-bone-100/80 leading-relaxed italic" />
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -450,6 +443,7 @@ function DiagnosisScreen(props: {
 /* ---------------------------- Tela 11 ------------------------------- */
 function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: string }) {
   const label = STAGE_LABELS[stage];
+  const final = SCREENS[SCREENS.length - 1];
   return (
     <div className="max-w-5xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
@@ -471,31 +465,38 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
             transition={{ delay: 0.1, duration: 0.7 }}
             className="mt-4 text-[1.9rem] sm:text-4xl font-serif font-medium text-bone-50 leading-[1.15]"
           >
-            Pronto. Seu Diagnóstico vai direto pro Danilo.
+            {final.title}
           </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="mt-5"
+          >
+            <RichText text={final.body ?? ""} className="text-bone-100/85 leading-[1.8]" />
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="mt-5 text-bone-100/85 leading-relaxed"
+            transition={{ delay: 0.45, duration: 0.8 }}
+            className="mt-7 text-bone-50 font-medium text-[1.02rem]"
           >
-            O Danilo Mello é planejador financeiro e já ajudou pessoas em todos esses
-            perfis — do “não sei pra onde vai meu dinheiro” até “sobra, mas não
-            vira nada” — a assumir o controle e transformar renda em patrimônio e
-            projetos realizados.
+            Eu vou pessoalmente te ajudar a:
           </motion.p>
 
           <motion.ul
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="mt-6 space-y-3"
+            className="mt-4 space-y-3"
           >
             {[
-              "Ler seu Diagnóstico",
-              "Te mostrar o próximo passo pra evoluir do seu perfil",
-              "Explicar como funciona o acompanhamento individual",
+              "Ler e entender o que te trava no financeiro",
+              "Sair das dívidas com clareza",
+              "Te mostrar o que fazer para o seu dinheiro multiplicar",
+              "Explicar como funciona o meu acompanhamento individual",
             ].map((item, i) => (
               <motion.li
                 key={i}
@@ -513,11 +514,24 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
             ))}
           </motion.ul>
 
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.85, duration: 0.8 }}
+            className="mt-8 text-bone-100/90 leading-[1.8] text-[1.02rem]"
+          >
+            Clique no botão abaixo para agendar uma call comigo e eu te mostro{" "}
+            <span className="text-glow-gold font-semibold">
+              como é possível mudar a sua realidade financeira
+            </span>
+            .
+          </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.6 }}
-            className="mt-8"
+            className="mt-6"
           >
             <ShimmerButton
               as="a"
@@ -535,8 +549,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
             transition={{ delay: 1.1, duration: 0.8 }}
             className="mt-5 text-sm text-bone-300 italic max-w-md"
           >
-            P.S. Não importa de onde você parte. O que decide o seu futuro financeiro é
-            ter um plano — e começar hoje.
+            P.S. O que decide o seu futuro financeiro é ter um plano — e começar hoje.
           </motion.p>
         </div>
 
@@ -551,7 +564,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
             <div className="relative overflow-hidden rounded-2xl border border-gold-500/35 shadow-gold">
               <img
                 src={DANILO_PHOTO}
-                alt="Danilo Mello, planejador financeiro"
+                alt="Danilo Boschi, planejador financeiro"
                 loading="lazy"
                 className="w-full h-auto block object-cover"
                 style={{ aspectRatio: "4/5", objectPosition: "center top" }}
@@ -570,7 +583,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
               {/* Legenda */}
               <div className="absolute left-0 right-0 bottom-0 p-5">
                 <div className="text-[0.65rem] tracking-[0.35em] text-gold-500 uppercase">Planejador Financeiro</div>
-                <div className="mt-1 font-serif text-xl text-bone-50">Danilo Mello</div>
+                <div className="mt-1 font-serif text-xl text-bone-50">Danilo Boschi</div>
               </div>
             </div>
 
@@ -596,7 +609,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
       <div className="mt-16 text-center">
         <div className="gold-hairline w-32 mx-auto mb-6" />
         <p className="text-xs text-bone-300 tracking-widest uppercase">
-          Diagnóstico Financeiro Emocional · Danilo Mello
+          Diagnóstico Financeiro Emocional · Danilo Boschi
         </p>
       </div>
     </div>

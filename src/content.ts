@@ -18,9 +18,9 @@ export const SCREENS: Screen[] = [
     index: 0,
     kind: "intro",
     title:
-      "Descubra qual é o seu perfil emocional com o dinheiro, identifique o que te trava e receba o que fazer para ver o dinheiro sobrar.",
+      "Descubra qual é o seu perfil emocional com o dinheiro, identifique o que te trava e veja o que fazer para ver o dinheiro sobrar.",
     body:
-      "Independente da sua situação financeira — se você já investe ou ainda não tem clareza — o diagnóstico te dá o caminho certo para ver o dinheiro sobrar e multiplicar com a técnica certa.",
+      "Independente da sua situação financeira — se você já investe ou ainda não tem clareza — o diagnóstico te dá o caminho certo.",
     cta: "Fazer meu Diagnóstico",
   },
   // Tela 2 — captura o estágio
@@ -59,7 +59,7 @@ export const SCREENS: Screen[] = [
     kind: "intro",
     title: "Existe um diagnóstico. E ele revela qual dos quatro perfis é o seu.",
     body:
-      "Depois de acompanhar muita gente, o planejador Danilo Mello percebeu que o problema quase nunca é o quanto a pessoa ganha — é a sua relação emocional com o dinheiro. E ela quase sempre cai num de quatro perfis:\n\n• No escuro — o mês fecha e você não sabe pra onde o dinheiro foi\n• Refém do hábito — a renda existe, mas o consumo descontrolado a consome\n• Quase lá — já sobra algo, mas sem plano ele escorre pelos dedos\n• Sobra sem rumo — sobra bem, mas o dinheiro fica parado ou mal usado\n\nO ponto mais importante: o caminho pra evoluir é diferente em cada perfil. Por isso conselho genérico de internet nunca funcionou pra você.\n\nAs próximas perguntas revelam qual é o seu perfil.",
+      "O problema quase nunca é o quanto a pessoa ganha — é a sua **relação emocional com o dinheiro**. E ela quase sempre cai num de **quatro perfis**:\n\n• **No escuro** — o mês fecha e você não sabe pra onde o dinheiro foi\n\n• **Refém do hábito** — a renda existe, mas o consumo descontrolado a consome\n\n• **Quase lá** — já sobra algo, mas sem plano ele escorre pelos dedos\n\n• **Sobra sem rumo** — sobra bem, mas o dinheiro fica parado ou mal usado\n\nO ponto mais importante: **o caminho pra evoluir é diferente em cada perfil**. Por isso conselho genérico de internet nunca funcionou pra você.\n\nAs próximas perguntas revelam qual é o seu perfil.",
     cta: "Descobrir meu perfil",
   },
   // Tela 5
@@ -145,9 +145,9 @@ export const SCREENS: Screen[] = [
   {
     index: 10,
     kind: "cta",
-    title: "Pronto. Seu Diagnóstico vai direto pro Danilo.",
+    title: "Olá, eu sou Danilo Boschi e recebi o seu diagnóstico!",
     body:
-      "O Danilo Mello é planejador financeiro e já ajudou pessoas em todos esses perfis — do “não sei pra onde vai meu dinheiro” até “sobra, mas não vira nada” — a assumir o controle e transformar renda em patrimônio e projetos realizados.",
+      "Eu já ajudei **dezenas de pessoas** em todos esses perfis — desde o “não sei pra onde vai meu dinheiro” até “sobra, mas não vira nada” — a assumirem o **controle financeiro** e transformarem renda em **patrimônio e projetos realizados**.",
     cta: "Falar com o Danilo agora",
   },
 ];
@@ -156,24 +156,24 @@ export const DIAGNOSIS: Record<Stage, { headline: string; body: string }> = {
   E1: {
     headline: "No escuro",
     body:
-      "Você está no escuro — e isso não é sobre ganhar pouco, é sobre não enxergar. Seu dinheiro entra e sai sem deixar rastro, então toda decisão é no susto. A boa notícia: esse é o ponto que mais rápido muda. No instante em que você passa a enxergar pra onde o dinheiro vai, a sobra aparece onde antes parecia não existir. O que falta não é renda. É o primeiro mapa.",
+      "Você está no escuro — e isso não é sobre ganhar pouco, é sobre **não enxergar**. Seu dinheiro entra e sai sem deixar rastro, então toda decisão é no susto.\n\nA boa notícia: esse é o ponto que **mais rápido muda**. No instante em que você passa a enxergar pra onde o dinheiro vai, a sobra aparece onde antes parecia não existir.\n\nO que falta não é renda. É o **primeiro mapa**.",
   },
   E2: {
     headline: "Refém do hábito",
     body:
-      "Você é refém do hábito. Sua renda daria conta — mas os hábitos de consumo consomem o dinheiro antes dele ter chance de virar algo. Isso não te faz irresponsável; te faz humano sem um sistema. Força de vontade sozinha sempre falha. O que vira esse jogo é estrutura: um plano que trabalha a seu favor em vez de depender de você resistir todo dia.",
+      "Você é refém do hábito. Sua renda daria conta — mas os **hábitos de consumo** consomem o dinheiro antes dele ter chance de virar algo.\n\nIsso não te faz irresponsável; te faz humano sem um sistema. Força de vontade sozinha sempre falha.\n\nO que vira esse jogo é **estrutura**: um plano que trabalha a seu favor em vez de depender de você resistir todo dia.",
   },
   E3: {
     headline: "Quase lá",
     body:
-      "Você está quase lá. Já sobra alguma coisa — o mais difícil você já faz. Mas sem um planejamento, essa sobra escorre pelos dedos e você recomeça do zero todo mês. É frustrante justamente porque você está perto. Falta pouco: dar destino e estrutura ao que já sobra, pra ele parar de evaporar e começar a se acumular.",
+      "Você está quase lá. Já sobra alguma coisa — **o mais difícil você já faz**. Mas sem um planejamento, essa sobra escorre pelos dedos e você recomeça do zero todo mês.\n\nÉ frustrante justamente porque você está perto.\n\nFalta pouco: dar **destino e estrutura** ao que já sobra, pra ele parar de evaporar e começar a se acumular.",
   },
   E4: {
     headline: "Sobra sem rumo",
     body:
-      "Sua sobra está sem rumo. Você faz tudo certo: ganha bem, guarda. Mas o dinheiro fica parado ou mal aplicado, sem estar amarrado a nenhum projeto — então não cresce com propósito e você sente que anda em círculos mesmo acumulando. Não falta disciplina. Falta estratégia e um destino claro pra esse dinheiro.",
+      "Sua sobra está sem rumo. Você faz tudo certo: ganha bem, guarda. Mas o dinheiro fica parado ou mal aplicado, sem estar amarrado a nenhum projeto — então **não cresce com propósito** e você sente que anda em círculos mesmo acumulando.\n\nNão falta disciplina. Falta **estratégia e um destino claro** pra esse dinheiro.",
   },
 };
 
 export const DIAGNOSIS_CLOSING =
-  "Esse é o seu perfil — a sua relação atual com o dinheiro. Mas saber qual é o seu perfil não te tira do lugar. O que transforma é o caminho certo pro seu perfil — e colocá-lo em prática com acompanhamento.";
+  "Esse é o seu perfil — a sua **relação atual com o dinheiro**.\n\nMas saber qual é o seu perfil não te tira do lugar. O que transforma é **o caminho certo pro seu perfil** — e colocá-lo em prática com acompanhamento.";
