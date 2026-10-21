@@ -29,7 +29,7 @@ export const LOADING_MESSAGES: string[] = [
   "Calibrando seu perfil",                 // -> tela 8
   "Traçando seu caminho",                  // -> tela 9
   "Definindo suas prioridades",            // -> tela 10
-  "Preparando tudo para o Danilo",         // -> tela 11
+  "Preparando seu próximo passo",          // -> tela 11
 ];
 
 // Paleta (ajustável). Fonte de verdade em tailwind.config.js e index.css.
