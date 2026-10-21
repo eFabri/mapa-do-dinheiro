@@ -17,33 +17,19 @@ export const TRANSITION_MS_BY_STEP: Record<string, number> = {
 };
 
 // Microfrases do loading por tela de destino (índice 0-based)
+// — exibidas embaixo da bússola calibrando
 export const LOADING_MESSAGES: string[] = [
-  "Abrindo seu Diagnóstico...",            // -> tela 1
+  "Abrindo seu diagnóstico...",            // -> tela 1
   "Lendo sua relação com o dinheiro",      // -> tela 2
-  "Validando sua resposta",                // -> tela 3
-  "Confirmando o padrão identificado",     // -> tela 4
+  "Registrando sua resposta",              // -> tela 3
+  "Identificando seu padrão",              // -> tela 4
   "Encontrando sua direção",               // -> tela 5
-  "Projetando sua trajetória",             // -> tela 6
-  "Simulando seus próximos 5 anos",        // -> tela 7
+  "Analisando sua trajetória",             // -> tela 6
+  "Projetando seus próximos anos",         // -> tela 7
   "Calibrando seu perfil",                 // -> tela 8
-  "Montando seu plano de evolução",        // -> tela 9
-  "Alocando sua estratégia",               // -> tela 10
-  "Encaminhando seu diagnóstico",          // -> tela 11
-];
-
-// Variante de loader por tela de destino (0..5 → Bars, Checks, Line, Donut, Dial, Stack)
-export const LOADER_VARIANT_BY_STEP: number[] = [
-  0, // 0 (nunca usado)
-  0, // -> 2 Barras ("Lendo sua relação com o dinheiro")
-  1, // -> 3 Checklist ("Validando sua resposta")
-  3, // -> 4 Donut ("Confirmando o padrão identificado")
-  4, // -> 5 Dial ("Encontrando sua direção")
-  2, // -> 6 Linha ("Projetando sua trajetória")
-  2, // -> 7 Linha ("Simulando seus próximos 5 anos")
-  4, // -> 8 Dial — escreve CALIBRANDO ("Calibrando seu perfil")
-  5, // -> 9 Stack ("Montando seu plano de evolução")
-  5, // -> 10 Stack ("Alocando sua estratégia")
-  1, // -> 11 Checks ("Encaminhando seu diagnóstico")
+  "Traçando seu caminho",                  // -> tela 9
+  "Definindo suas prioridades",            // -> tela 10
+  "Preparando tudo para o Danilo",         // -> tela 11
 ];
 
 // Paleta (ajustável). Fonte de verdade em tailwind.config.js e index.css.

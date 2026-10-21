@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-type Props = { size?: number; className?: string };
+type Props = { size?: number; className?: string; mode?: "hero" | "calibrating" };
 
 /**
  * Bússola premium — metáfora do "encontrar seu norte financeiro".
@@ -8,8 +8,12 @@ type Props = { size?: number; className?: string };
  * se estabiliza apontando para cima com um balanço vivo. Pivô
  * dourado pulsante; 4 marcas cardeais ao redor que acendem quando
  * a agulha passa (reforço sutil de "4 perfis").
+ *
+ * mode="calibrating": usada nas transições — agulha varrendo em loop
+ * contínuo e rápido, sem pausa, e menos partículas.
  */
-export default function Compass({ size = 260, className = "" }: Props) {
+export default function Compass({ size = 260, className = "", mode = "hero" }: Props) {
+  const calibrating = mode === "calibrating";
   const vb = 220;
   const cx = vb / 2;
   const cy = vb / 2;
@@ -23,8 +27,9 @@ export default function Compass({ size = 260, className = "" }: Props) {
   const marks = [0, 90, 180, 270];
 
   // Micro-partículas (12 pontos ao redor)
-  const particles = Array.from({ length: 12 }).map((_, i) => {
-    const a = (i / 12) * Math.PI * 2 + Math.random() * 0.2;
+  const particleCount = calibrating ? 6 : 12;
+  const particles = Array.from({ length: particleCount }).map((_, i) => {
+    const a = (i / particleCount) * Math.PI * 2 + Math.random() * 0.2;
     return { a, r: rOuter + 10 + (i % 3) * 5, delay: i * 0.3 };
   });
 
@@ -151,15 +156,23 @@ export default function Compass({ size = 260, className = "" }: Props) {
         {/* Agulha — hesita e encontra o norte */}
         <motion.g
           style={{ transformOrigin: `${cx}px ${cy}px` }}
-          initial={{ rotate: -90 }}
-          animate={{ rotate: [...needleKeys, 0] }}
-          transition={{
-            times: [0, 0.08, 0.17, 0.26, 0.34, 0.42, 0.5, 0.58, 0.66, 0.74, 0.82, 1],
-            duration: 5.5,
-            ease: "easeInOut",
-            repeat: Infinity,
-            repeatDelay: 1.2,
-          }}
+          {...(calibrating
+            ? {
+                initial: { rotate: -35 },
+                animate: { rotate: [-35, 35, -35] },
+                transition: { duration: 1.8, ease: "easeInOut", repeat: Infinity, repeatDelay: 0 },
+              }
+            : {
+                initial: { rotate: -90 },
+                animate: { rotate: [...needleKeys, 0] },
+                transition: {
+                  times: [0, 0.08, 0.17, 0.26, 0.34, 0.42, 0.5, 0.58, 0.66, 0.74, 0.82, 1],
+                  duration: 5.5,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatDelay: 1.2,
+                },
+              })}
         >
           {/* Metade sul (escura) */}
           <path

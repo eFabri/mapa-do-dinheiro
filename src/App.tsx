@@ -5,7 +5,6 @@ import {
   TRANSITION_MS_DEFAULT,
   TRANSITION_MS_BY_STEP,
   LOADING_MESSAGES,
-  LOADER_VARIANT_BY_STEP,
   STAGE_LABELS,
   DANILO_PHOTO,
   type Stage,
@@ -30,7 +29,6 @@ export default function App() {
   const [selected, setSelected] = useState<Record<number, Option>>({});
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
-  const [loadingVariant, setLoadingVariant] = useState(0);
   const reduceMotion = useReducedMotion();
 
   const screen = SCREENS[step];
@@ -60,7 +58,6 @@ export default function App() {
     const duration = reduceMotion ? Math.min(base, 500) : base;
 
     setLoadingMsg(LOADING_MESSAGES[nextStep] || "Carregando...");
-    setLoadingVariant(LOADER_VARIANT_BY_STEP[nextStep] ?? nextStep % 6);
     setLoading(true);
     window.setTimeout(() => {
       setStep(nextStep);
@@ -123,7 +120,7 @@ export default function App() {
 
       <AnimatePresence mode="wait">
         {loading ? (
-          <Loading key="loader" message={loadingMsg} variant={loadingVariant} />
+          <Loading key="loader" message={loadingMsg} />
         ) : (
           <motion.main
             key={`screen-${step}`}
