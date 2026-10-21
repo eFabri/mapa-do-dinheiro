@@ -17,15 +17,16 @@ export const TRANSITION_MS_BY_STEP: Record<string, number> = {
 };
 
 // Microfrases do loading por tela de destino (índice 0-based)
-// — exibidas embaixo da bússola calibrando
+// — exibidas embaixo da bússola calibrando. A transição 1->2 acontece antes
+// de qualquer resposta: só falar em "ler/analisar" a partir da tela 4.
 export const LOADING_MESSAGES: string[] = [
-  "Abrindo seu diagnóstico...",            // -> tela 1
-  "Lendo sua relação com o dinheiro",      // -> tela 2
+  "Abrindo seu diagnóstico...",            // -> tela 1 (nunca exibida)
+  "Preparando suas perguntas...",          // -> tela 2
   "Registrando sua resposta",              // -> tela 3
-  "Identificando seu padrão",              // -> tela 4
-  "Encontrando sua direção",               // -> tela 5
-  "Analisando sua trajetória",             // -> tela 6
-  "Projetando seus próximos anos",         // -> tela 7
+  "Lendo o que você respondeu",            // -> tela 4
+  "Identificando seu padrão",              // -> tela 5
+  "Encontrando sua direção",               // -> tela 6
+  "Analisando sua trajetória",             // -> tela 7
   "Calibrando seu perfil",                 // -> tela 8
   "Traçando seu caminho",                  // -> tela 9
   "Definindo suas prioridades",            // -> tela 10

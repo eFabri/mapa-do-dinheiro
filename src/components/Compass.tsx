@@ -158,9 +158,17 @@ export default function Compass({ size = 260, className = "", mode = "hero" }: P
           style={{ transformOrigin: `${cx}px ${cy}px` }}
           {...(calibrating
             ? {
-                initial: { rotate: -35 },
-                animate: { rotate: [-35, 35, -35] },
-                transition: { duration: 1.8, ease: "easeInOut", repeat: Infinity, repeatDelay: 0 },
+                // Sempre em sentido horário: empurra → segura → empurra.
+                // 0 e 360 são a mesma posição, então o loop não "volta".
+                initial: { rotate: 0 },
+                animate: { rotate: [0, 70, 90, 170, 180, 260, 270, 350, 360] },
+                transition: {
+                  times: [0, 0.12, 0.22, 0.4, 0.5, 0.68, 0.78, 0.94, 1],
+                  duration: 2.6,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatDelay: 0,
+                },
               }
             : {
                 initial: { rotate: -90 },
