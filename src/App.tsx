@@ -16,6 +16,7 @@ import OptionList from "./components/OptionList";
 import Loading from "./components/Loading";
 import Testimonials from "./components/Testimonials";
 import RichText from "./components/RichText";
+import { track, trackCustom, qualificacao, type Qualificacao } from "./lib/pixel";
 
 type Answers = {
   stage?: Stage;
@@ -27,6 +28,7 @@ export default function App() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [selected, setSelected] = useState<Record<number, Option>>({});
+  const [answerIds, setAnswerIds] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
   const reduceMotion = useReducedMotion();
@@ -48,6 +50,9 @@ export default function App() {
     } else if (screen.stageKey) {
       setAnswers((prev) => ({ ...prev, [screen.stageKey as string]: opt.label }));
     }
+    if (screen.stageKey) {
+      setAnswerIds((prev) => ({ ...prev, [screen.stageKey as string]: opt.id }));
+    }
   }
 
   function advance() {
@@ -68,6 +73,13 @@ export default function App() {
 
   const stage: Stage = answers.stage ?? "E1";
   const diag = DIAGNOSIS[stage];
+  const perfil = `${STAGE_LABELS[stage]} (${stage})`;
+  const leadParams: LeadParams = {
+    perfil,
+    prontidao: answerIds["readiness"],
+    compromisso: answerIds["commit3"],
+    qualificacao: qualificacao(answerIds["readiness"], answerIds["commit3"]),
+  };
 
   const whatsappHref = useMemo(() => {
     const label = STAGE_LABELS[stage];
@@ -130,9 +142,14 @@ export default function App() {
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="relative z-10 min-h-screen pt-20 pb-16 px-5"
           >
-            {step === 0 && <IntroScreen onNext={advance} />}
+            {step === 0 && <IntroScreen
+                onNext={() => {
+                  trackCustom("IniciarDiagnostico");
+                  advance();
+                }}
+              />}
             {step === SCREENS.length - 1 && (
-              <FinalScreen stage={stage} whatsappHref={whatsappHref} />
+              <FinalScreen stage={stage} whatsappHref={whatsappHref} leadParams={leadParams} />
             )}
 
             {step > 0 && step < SCREENS.length - 1 && screen.kind !== "diagnosis" && (
@@ -151,6 +168,7 @@ export default function App() {
             {screen.kind === "diagnosis" && (
               <DiagnosisScreen
                 stage={stage}
+                perfil={perfil}
                 headline={diag.headline}
                 body={diag.body}
                 closing={DIAGNOSIS_CLOSING}
@@ -289,14 +307,19 @@ function StandardScreen(props: {
 /* --------------------------- Tela diagnóstico ----------------------- */
 function DiagnosisScreen(props: {
   stage: Stage;
+  perfil: string;
   headline: string;
   body: string;
   closing: string;
   cta: string;
   onAdvance: () => void;
 }) {
-  const { stage, headline, body, closing, cta, onAdvance } = props;
+  const { stage, perfil, headline, body, closing, cta, onAdvance } = props;
   const stageIndex = ["E1", "E2", "E3", "E4"].indexOf(stage);
+
+  useEffect(() => {
+    track("ViewContent", { content_name: "Resultado Diagnostico", content_category: perfil });
+  }, []);
 
   return (
     <div className="max-w-xl mx-auto">
@@ -438,8 +461,32 @@ function DiagnosisScreen(props: {
 }
 
 /* ---------------------------- Tela 11 ------------------------------- */
-function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: string }) {
+type LeadParams = {
+  perfil: string;
+  prontidao?: string;
+  compromisso?: string;
+  qualificacao: Qualificacao;
+};
+
+function FinalScreen({
+  stage,
+  whatsappHref,
+  leadParams,
+}: {
+  stage: Stage;
+  whatsappHref: string;
+  leadParams: LeadParams;
+}) {
   const label = STAGE_LABELS[stage];
+
+  useEffect(() => {
+    track("CompleteRegistration", leadParams);
+  }, []);
+
+  function handleWhatsappClick() {
+    track("Lead", leadParams);
+    if (leadParams.qualificacao === "quente") trackCustom("LeadQuente", leadParams);
+  }
   const final = SCREENS[SCREENS.length - 1];
   return (
     <div className="max-w-5xl mx-auto">
@@ -535,6 +582,7 @@ function FinalScreen({ stage, whatsappHref }: { stage: Stage; whatsappHref: stri
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleWhatsappClick}
             >
               Falar com o Danilo no WhatsApp
             </ShimmerButton>
